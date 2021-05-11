@@ -8,9 +8,12 @@ import reportWebVitals from './reportWebVitals';
 import {createStore} from 'redux';
 import {Provider} from 'react-redux';
 
-// const intialState = [];
+const intialState = {
+  weather: null,
+  
+};
 
-function reducer(state:any){
+function reducer(state:any = intialState){
  
   return state;
 }
