@@ -10,7 +10,7 @@ import {Provider} from 'react-redux';
 
 const intialState = {
   weather: null,
-  
+  forecast: null,
 };
 
 function reducer(state:any = intialState){
