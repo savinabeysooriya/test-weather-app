@@ -12,11 +12,17 @@ import {connect} from 'react-redux';
 
 function App() {
 
+
+
   const [city, setCity] = useState<string>();
   const [weather, setWeather] = useState();
   const [forecast, setForecast] = useState();
   const [error, setError] = useState<boolean>(false);
   const [errorText, setErrorText] = useState<string>()
+
+
+
+
   useEffect(() => {
 
     if (city !== undefined) {
@@ -43,6 +49,20 @@ function App() {
     }
   }, [city]);
 
+
+  const dispatchWeatherData = (props:any) =>{
+
+   props.dispatch({ type: "WEATHER_DATA"} )
+
+  };
+
+  const dispatchForecastData = (props:any) =>{
+
+    props.dispatch({ type: "FORECAST_DATA"} )
+ 
+   };
+
+
   return (
     <div>
       <Header />
@@ -56,12 +76,14 @@ function App() {
               {forecast && <ForecastView forecastData={forecast} />}
             </React.Fragment>
           }
-        </Grid>
+        </Grid> 
       </Container>
       <Footer />
     </div>
   );
 }
+
+
 
 const mapStateToProps = (state: any) =>({
 
