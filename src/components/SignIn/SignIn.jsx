@@ -1,13 +1,39 @@
 import React from "react";
-import "./styles.scss";
 import Container from "@material-ui/core/Container";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
-
 import Box from "@material-ui/core/Box";
 
+import "./styles.scss";
+
+import { useFormik } from "formik";
+import * as yup from "yup";
+
 const SignIn = () => {
+
+  const formik = useFormik({
+    initialValues: {
+      
+      email: "",
+      password: "",
+      
+    },
+    validationSchema: yup.object({
+     
+      email: yup
+        .string("Enter Your Email")
+        .email("Invalid email address")
+        .required("Required"),
+      password: yup.string("Enter Your Password").required("Required"),
+      
+    }),
+    onSubmit: (values) => {
+      alert(JSON.stringify(values, null, 2));
+    },
+  });
+
+
   return (
     <div>
       <Box
@@ -52,22 +78,42 @@ const SignIn = () => {
               </Typography>
               <hr className="right-line" />
 
-              <form className="form">
+              <form className="form" onSubmit={formik.handleSubmit}>
                 <div className="text-field">
-                  <TextField label="Email" margin="normal"></TextField>
-                  <TextField label="password" margin="normal"></TextField>
-                
-                </div>
-              </form>
-              <div className="div-right-btn">
+                  <TextField label="Email" margin="normal"
+                   id="email"
+                   name="email"
+                   value={formik.values.email}
+                   onChange={formik.handleChange}
+                   error={formik.touched.email && Boolean(formik.errors.email)}
+                   helperText={formik.touched.email && formik.errors.email}
+                  ></TextField>
+                  <TextField label="password" margin="normal"
+                  id="password"
+                  name="password"
+                  value={formik.values.password}
+                  onChange={formik.handleChange}
+                  error={
+                    formik.touched.password && Boolean(formik.errors.password)
+                  }
+                  helperText={
+                    formik.touched.password && formik.errors.password
+                  }
+                  ></TextField>
+                  <div className="div-right-btn">
                 <Button
                   variant="contained"
                   color="primary"
                   className="right-btn"
+                  type="submit"
                 >
                   SignIn
                 </Button>
               </div>
+                
+                </div>
+              </form>
+              
             </div>
           </Container>
         </Box>

@@ -1,13 +1,39 @@
 import React from "react";
-import "./styles.scss";
+
 import Container from "@material-ui/core/Container";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
-
 import Box from "@material-ui/core/Box";
 
+import "./styles.scss";
+
+import { useFormik } from "formik";
+import * as yup from "yup";
+
 const SignUp = () => {
+
+  const formik = useFormik({
+    initialValues: {
+      name: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+    },
+    validationSchema: yup.object({
+      name: yup.string("Enter Your Name").required("Required"),
+      email: yup
+        .string("Enter Your Email")
+        .email("Invalid email address")
+        .required("Required"),
+      password: yup.string("Enter Your Password").required("Required"),
+      confirmPassword: yup.string("Confirm Your Password").required("Required"),
+    }),
+    onSubmit: (values) => {
+      alert(JSON.stringify(values, null, 2));
+    },
+  });
+
   return (
     <div>
       <Box
@@ -52,25 +78,66 @@ const SignUp = () => {
               </Typography>
               <hr className="right-line" />
 
-              <form className="form">
+              <form className="form" onSubmit={formik.handleSubmit}>
                 <div className="text-field">
-                  <TextField label="Email" margin="normal"></TextField>
-                  <TextField label="password" margin="normal"></TextField>
+                  <TextField label="Name" margin="normal"
+                   id="name"
+                   name="name"
+                   value={formik.values.name}
+                   onChange={formik.handleChange}
+                   error={formik.touched.name && Boolean(formik.errors.name)}
+                   helperText={formik.touched.name && formik.errors.name}
+                  ></TextField>
+
+                  <TextField label="Email" margin="normal"
+                   id="email"
+                   name="email"
+                   value={formik.values.email}
+                   onChange={formik.handleChange}
+                   error={formik.touched.email && Boolean(formik.errors.email)}
+                   helperText={formik.touched.email && formik.errors.email}
+                  ></TextField>
+
+                  <TextField label="password" margin="normal"
+                  id="password"
+                  name="password"
+                  value={formik.values.password}
+                  onChange={formik.handleChange}
+                  error={
+                    formik.touched.password && Boolean(formik.errors.password)
+                  }
+                  helperText={
+                    formik.touched.password && formik.errors.password
+                  }
+                  ></TextField>
                   <TextField
                     label="Confirm password"
                     margin="normal"
+                    id="confirmPassword"
+                    name="confirmPassword"
+                    value={formik.values.confirmPassword}
+                    onChange={formik.handleChange}
+                    error={
+                      formik.touched.confirmPassword &&
+                      Boolean(formik.errors.confirmPassword)
+                    }
+                    helperText={
+                      formik.touched.confirmPassword &&
+                      formik.errors.confirmPassword
+                    }
+
                   ></TextField>
+                  <div className="div-right-btn">
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      className="right-btn"
+                    >
+                      SignUp
+                    </Button>
+                  </div>
                 </div>
               </form>
-              <div className="div-right-btn">
-                <Button
-                  variant="contained"
-                  color="primary"
-                  className="right-btn"
-                >
-                  SignUp
-                </Button>
-              </div>
             </div>
           </Container>
         </Box>
