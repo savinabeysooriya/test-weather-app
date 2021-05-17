@@ -1,0 +1,2 @@
+export const FORECAST_DATA = 'FORECAST_DATA';
+export const WEATHER_DATA = 'WEATHER_DATA';

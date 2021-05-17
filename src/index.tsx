@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import ReactDOM from "react-dom";
 import "./index.scss";
 
@@ -8,28 +8,24 @@ import reportWebVitals from "./reportWebVitals";
 import { createStore } from "redux";
 import { Provider } from "react-redux";
 
-
 const intialState = {
   weather: null,
   forecast: null,
 };
 
-function reducer(state: any = intialState, action: any) {
+function Reducer(state: any = intialState, action: any) {
   switch (action.type) {
     case "WEATHER_DATA":
-      return {
-        weather: state.weather,
-      };
+      return {...state, ...action.payload};
+
     case "FORECAST_DATA":
-      return {
-        forecast: state.forecast,
-      };
+      return{...state, ...action.payload}; 
     default:
       return state;
   }
 }
 
-const store = createStore(reducer);
+const store = createStore(Reducer);
 
 ReactDOM.render(
   <React.StrictMode>
