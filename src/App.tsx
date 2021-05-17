@@ -7,7 +7,12 @@ import NotFound from "./components/NotFound/NotFound";
 import SearchView from "./components/SearchView/SearchView";
 import WeatherView from "./components/WeatherView/WeatherView";
 import ForecastView from "./components/ForecastView/ForecastView";
+import SignUp from "./components/SignUp/SignUp";
+import SignIn from "./components/SignIn/SignIn";
+
 import { connect } from "react-redux";
+
+import {BrowserRouter, Route, Switch} from 'react-router-dom';
 
 import {
   WEATHER_DATA,
@@ -73,6 +78,16 @@ function App(props: Props) {
 
   return (
     <div>
+      <BrowserRouter>
+      <Switch>
+
+        <Route path="/signin">
+        <SignIn/>
+        </Route>
+        <Route path="/signup">
+        <SignUp/>
+        </Route>
+        <Route>
       <Header />
       <Container maxWidth="md">
         <Grid>
@@ -87,6 +102,10 @@ function App(props: Props) {
         </Grid>
       </Container>
       <Footer />
+      </Route>
+      </Switch>
+
+      </BrowserRouter>
     </div>
   );
 }
