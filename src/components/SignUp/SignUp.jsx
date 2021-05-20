@@ -132,6 +132,7 @@ const SignUp = () => {
                       variant="contained"
                       color="primary"
                       className="right-btn"
+                      type="submit"
                     >
                       SignUp
                     </Button>

@@ -9,6 +9,12 @@ import WeatherView from "./components/WeatherView/WeatherView";
 import ForecastView from "./components/ForecastView/ForecastView";
 import SignUp from "./components/SignUp/SignUp";
 import SignIn from "./components/SignIn/SignIn";
+import {IntlProvider} from 'react-intl'
+import English from './components/lang/en.json';
+import China from './components/lang/ch.json';
+
+
+import {PrivateRoute} from './components/PrivateRoute'
 
 import { connect } from "react-redux";
 
@@ -19,13 +25,27 @@ import {
   FORECAST_DATA,
 } from "./components/Actiontypes/actionTypes";
 
+
+
 interface Props {
   weather: any;
   forecast: any;
   
   fetchWeatherData: any;
   fetchForecastData: any;
+
 }
+
+const local = navigator.language;
+
+let lang;
+if(local === "en"){
+  lang = English;
+}else{
+  lang =China;
+}
+
+
 
 function App(props: Props) {
   const [city, setCity] = useState<string>();
@@ -81,14 +101,16 @@ function App(props: Props) {
       <BrowserRouter>
       <Switch>
 
-        <Route path="/signin">
-        <SignIn/>
-        </Route>
-        <Route path="/signup">
-        <SignUp/>
-        </Route>
-        <Route>
-      <Header />
+        <Route path="/signin" component={SignIn}/>
+      
+        
+
+        <Route path="/signup" component={SignUp}/>
+        
+
+        <PrivateRoute path="/dashboard">
+
+        <IntlProvider locale={local} messages={China}><Header /> </IntlProvider> 
       <Container maxWidth="md">
         <Grid>
           <SearchView setCity={setCity} />
@@ -102,7 +124,7 @@ function App(props: Props) {
         </Grid>
       </Container>
       <Footer />
-      </Route>
+      </PrivateRoute>
       </Switch>
 
       </BrowserRouter>
