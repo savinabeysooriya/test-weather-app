@@ -5,8 +5,14 @@ import "./index.scss";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 
-import { createStore } from "redux";
+import { createStore, applyMiddleware} from "redux";
 import { Provider } from "react-redux";
+
+import createSagaMiddleware from 'redux-saga';
+import {watchFetchWeatherData} from './components/saga/saga';
+
+
+const sagaMiddleware = createSagaMiddleware();
 
 const intialState = {
   weather: null,
@@ -25,7 +31,9 @@ function Reducer(state: any = intialState, action: any) {
   }
 }
 
-const store = createStore(Reducer);
+const store = createStore(Reducer, applyMiddleware(sagaMiddleware));
+
+sagaMiddleware.run(watchFetchWeatherData)
 
 ReactDOM.render(
   <React.StrictMode>

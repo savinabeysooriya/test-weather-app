@@ -6,6 +6,7 @@ import TextField from "@material-ui/core/TextField";
 import Box from "@material-ui/core/Box";
 import CryptoAES from 'crypto-js/aes';
 import CryptoENC from 'crypto-js/enc-utf8';
+import {useHistory} from 'react-router-dom';
 
 
 
@@ -16,32 +17,41 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 
 
+  // var email = "user@email.com";
+  // var password = "1234";
+
+const person ={
+  email : "user@email.com",
+  password : "1234"
+}  
 
 
-  var email = "user@email.com";
-  var password = "1234";
+// var cipherTextEmail = CryptoAES.encrypt(email, '12345');
+// var cipherTextPassword = CryptoAES.encrypt(password, '12345');
 
-
-var cipherTextEmail = CryptoAES.encrypt(email, '12345');
-var cipherTextPassword = CryptoAES.encrypt(password, '12345');
-
-localStorage.setItem(cipherTextEmail, cipherTextPassword);
-
-
+// localStorage.setItem(cipherTextEmail, cipherTextPassword);
+// localStorage.clear();
 
 // console.log(_cipherTextEmail.toString(CryptoENC));
+// localStorage.getItem(_cipherTextEmail)==values.email && localStorage.getItem(_cipherTextPassword)== values.password
 
-
-// localStorage.setItem('user', JSON.stringify(person));
+localStorage.setItem('user', JSON.stringify(person));
 
 // console.log(JSON.parse(localStorage.getItem('user')).email);
 
 
-
 const SignIn = () => {
 
+  const history = useHistory();
 
-  
+  // function login(){
+
+  //   // localStorage.clear();
+  //   history.push('/signin')
+
+  // }
+
+ 
   const formik = useFormik({
     initialValues: {
       
@@ -62,12 +72,14 @@ const SignIn = () => {
      
       // console.log(typeof(values.email));
       // console.log(emailRef.current);
-      var _cipherTextEmail = CryptoAES.decrypt(cipherTextEmail.toString(), '12345');
-      var _cipherTextPassword = CryptoAES.decrypt(cipherTextPassword.toString(), '12345');
+      // var _cipherTextEmail = CryptoAES.decrypt(cipherTextEmail.toString(), '12345');
+      // var _cipherTextPassword = CryptoAES.decrypt(cipherTextPassword.toString(), '12345');
 
 
-      if(localStorage.getItem(_cipherTextEmail)==values.email && localStorage.getItem(_cipherTextPassword)== values.password){
+      if(JSON.parse(localStorage.getItem('user')).email==values.email && JSON.parse(localStorage.getItem('user')).password ==values.password){
         alert("login successful");
+        
+        history.push('/dashboard')
       }
 
       else{
