@@ -2,9 +2,18 @@ import axios from "axios";
 
 const apiToken = process.env.REACT_APP_OPEN_WEATHER_TOKEN;
 
+const api = axios.create(
+  {
+    baseURL: "https://api.openweathermap.org/data/2.5",
+    headers: {
+      "content-type": "application/json"
+    }
+  }
+);
+
 export function getWeather(cityName: string) {
-  return axios.get(
-    "https://api.openweathermap.org/data/2.5/weather?q=" +
+  return api.get(
+    "/weather?q=" +
     cityName +
     "&appid=" +
     apiToken +
@@ -13,8 +22,8 @@ export function getWeather(cityName: string) {
 }
 
 export function getForecast(lat: number, lon: number) {
-  return axios.get(
-    "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&exclude=current,minutely,hourly,alerts" +
+  return api.get(
+    "/onecall?lat=" + lat + "&lon=" + lon + "&exclude=current,minutely,hourly,alerts" +
     "&appid=" +
     apiToken +
     "&units=metric"

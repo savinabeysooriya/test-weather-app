@@ -13,14 +13,14 @@ import './styles.scss';
 
 const Header = () => {
 
-  // const history = useHistory();
+  const history = useHistory();
 
-  // function logOut(){
+  function logOut(){
 
-  //   // localStorage.clear();
-  //   history.push('/signin')
+    // localStorage.clear();
+    history.push('/signin')
 
-  // }
+  }
 
   return (
 
@@ -32,7 +32,7 @@ const Header = () => {
           <FormattedMessage id="titleMessage" defaultMessage="Weather app"/>
          
         </Typography>
-        {/* <Button className="logout" variant="outlined" onClick={logOut}>LOGOUT </Button> */}
+        <Button className="logout" variant="outlined" onClick={logOut}>LOGOUT </Button>
       </Toolbar>
     </AppBar>
   );
